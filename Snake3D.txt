@@ -1,0 +1,17 @@
+Benodigdheden
+-Een eigen physics / zwaartekracht systeem
+-Een efficiente segment hierarchy ( delen van de slang)
+-Een controleerbare manier om geluiden te gebruiken ( zo mogelijk wwise)
+
+Structuur
+-Segment Superclass
+	De apparte staart fragmenten inheriten deze superclass direct, de kop override hem grotendeels.
+-Event handler
+	Dit script zit op de wereldbol en handeld het spawnen van pallets en doodgaan van de slang af.
+-Kop
+	De kop van de slang word door de speler bestuurd, deze kop bevat alle informatie die nodig is om de slang te laten werken.
+
+Korte Uitleg
+Ik wil een 3d versie van snake maken waarbij de map in de vorm van een 3d bol is. Hierdoor kun je vanaf alle kanten in tegen je staart aan komen en af gaan, om het niet oneerlijk te maken kan de speler ook over de staart heen springen. 
+Om dit mogelijk te maken moet ik een manier vinden om niet van de bal af te vallen wanneer de slang aan de zijkant en onderkant hangt. Ook moet ik een manier vinden om de slang als een slang te laten bewegen ( zijn eigen pad volgen).
+Door pallets te eten die op de map spawnen word de slang langer en sneller. 
