@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static class Hand_Grab
+{
+
+	public static void Grab(GameObject hand, GameObject handCenter)
+    {
+        RaycastHit[] hits = Physics.SphereCastAll(hand.transform.position, 0.1f, hand.transform.forward, 0f);
+
+        if (hits.Length > 0)
+        {
+            int closestHit = 0;
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].distance < hits[closestHit].distance && hits[i].transform.gameObject.layer == 8)
+                {
+                    closestHit = i;
+                }
+            }
+
+            if (hits[closestHit].transform.gameObject.layer == 8)
+            {
+                GameObject grabbedObject = hand.GetComponent<Hand_Base>().grabbedObject = hits[closestHit].transform.gameObject;
+                grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+                grabbedObject.transform.position = handCenter.transform.position;
+                grabbedObject.transform.rotation = handCenter.transform.rotation;
+                grabbedObject.transform.parent = handCenter.transform;
+                AudioManager.Parameter_ThrowableIsInteractingClose();
+                VRController.Vibrate(0.5f, 0.1f, hand.GetComponent<Hand_Base>().controller);
+                return;
+            }
+
+            else if(hits[closestHit].transform.gameObject.layer == 9)
+            {
+                hits[closestHit].transform.gameObject.GetComponent<DoorLoader>().StartLoading();
+            }
+        }
+    }
+}
